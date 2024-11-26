@@ -1,9 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
-import { clerkMiddleware } from "@clerk/express";
 import fileUpload from "express-fileupload";
 import path from "path";
 import cors from "cors";
+import session from "express-session";
+import cookieParser from "cookie-parser";
 
 import userRoutes from "./routes/user.route.js";
 import adminRoutes from "./routes/admin.route.js";
@@ -20,16 +21,14 @@ const __dirname = path.resolve();
 const app = express();
 const PORT = process.env.PORT;
 
+// middlwares
 app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
   })
 );
-
-// middlwares
 app.use(express.json()); // to parse req.body
-app.use(clerkMiddleware()); // add auth property to req object => req.auth.user
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -40,7 +39,16 @@ app.use(
     },
   })
 );
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(cookieParser());
 
+// routes
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);

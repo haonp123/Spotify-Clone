@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    clerkId: {
+    googleId: {
       type: String,
       required: true,
       unique: true,

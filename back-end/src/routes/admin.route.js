@@ -11,14 +11,14 @@ import { protectRoute, requireAdmin } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.use(protectRoute, requireAdmin);
+router.use(protectRoute);
 
 router.get("/check", checkAdmin);
 
-router.post("/songs", createSong);
-router.delete("/songs/:id", deleteSong);
+router.post("/songs", requireAdmin, createSong);
+router.delete("/songs/:id", requireAdmin, deleteSong);
 
-router.post("/albums", createAlbum);
-router.delete("/albums/:id", deleteAlbum);
+router.post("/albums", requireAdmin, createAlbum);
+router.delete("/albums/:id", requireAdmin, deleteAlbum);
 
 export default router;

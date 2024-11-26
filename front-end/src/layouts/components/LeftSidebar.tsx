@@ -2,7 +2,6 @@ import { buttonVariants } from "@/components/ui/button";
 import { HomeIcon, Library, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { SignedIn } from "@clerk/clerk-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import PlaylistSkeleton from "@/components/skeletons/PlaylistSkeleton";
 import { useEffect, useState } from "react";
@@ -14,8 +13,6 @@ const LeftSidebar = () => {
   useEffect(() => {
     fetchAlbums();
   }, [fetchAlbums]);
-
-  console.log({ albums });
 
   return (
     <div className="h-full flex flex-col gap-2">
@@ -35,7 +32,7 @@ const LeftSidebar = () => {
             <span className="hidden md:inline">Home</span>
           </Link>
 
-          <SignedIn>
+          <div>
             <Link
               to="/chat"
               className={cn(
@@ -48,7 +45,7 @@ const LeftSidebar = () => {
               <MessageCircle className="mr-2 size-5" />
               <span className="hidden md:inline">Messages</span>
             </Link>
-          </SignedIn>
+          </div>
         </div>
       </div>
 
