@@ -49,8 +49,9 @@ export const useMusicStore = create<MusicStore>((set) => ({
   fetchAlbumById: async (id) => {
     set({ isLoading: true, error: null });
     try {
-      const response = await fetch(`/api/api/albums/${id}`);
+      const response = await fetch(`/api/albums/${id}`);
       const data = await response.json();
+
       set({ currentAlbum: data });
     } catch (error: any) {
       set({ error: error.response.data.message });

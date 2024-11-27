@@ -5,6 +5,7 @@ import { useMusicStore } from "@/stores/useMusicStore";
 import FeaturedSection from "./components/FeaturedSection";
 import SectionGrid from "./components/SectionGrid";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const HomePage = () => {
   const {
@@ -14,13 +15,22 @@ const HomePage = () => {
     isLoading,
     madeForYouSongs,
     trendingSongs,
+    featuredSongs,
   } = useMusicStore();
+
+  const { initializeQueue } = usePlayerStore();
 
   useEffect(() => {
     fetchFeaturedSongs();
     fetchMadeForYouSongs();
     fetchTrendingSongs();
   }, [fetchFeaturedSongs, fetchMadeForYouSongs, fetchTrendingSongs]);
+
+  useEffect(() => {
+    if (madeForYouSongs.length > 0 && featuredSongs.length > 0 && trendingSongs.length > 0) {
+      initializeQueue([...featuredSongs, ...madeForYouSongs, ...trendingSongs]);
+    }
+  }, [initializeQueue, featuredSongs, madeForYouSongs, trendingSongs]);
 
   return (
     <div className="h-full rounded-md overflow-hidden">
