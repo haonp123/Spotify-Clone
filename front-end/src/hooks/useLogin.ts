@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { axiosInstance } from "@/lib/axios";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -16,19 +17,14 @@ export const useLogin = () => {
       const obj = {
         token: credential,
       };
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
+      const res = await axiosInstance.post("/auth/login", obj, {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(obj),
       });
 
-      const data = await res.json();
+      const data = res.data;
 
-      if (!res.ok) {
-        throw new Error(data.message);
-      }
       toast.success("Welcome to back!");
       setAuthUser(data.user);
 

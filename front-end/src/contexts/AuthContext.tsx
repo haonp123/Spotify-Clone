@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect, Dispatch, SetStateActio
 import { toast } from "react-hot-toast";
 
 import { useAuthStore } from "@/stores/useAuthStore";
+import { axiosInstance } from "@/lib/axios";
 
 type UserType = {
   id: string;
@@ -32,13 +33,11 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   useEffect(() => {
     const fetchAuthUser = async () => {
       try {
-        const res = await fetch("/api/auth/me");
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error);
-        }
+        const res = await axiosInstance.get("/auth/me");
 
-        setAuthUser(data);
+        const data = res.data;
+
+        setAuthUser({ ...data, imageUrl: data.profilePic });
 
         await checkAdminStatus();
       } catch (error: any) {
@@ -50,7 +49,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     };
 
     fetchAuthUser();
-  }, []);
+  }, [checkAdminStatus]);
 
   return (
     <AuthContext.Provider value={{ authUser, setAuthUser, isLoading }}>

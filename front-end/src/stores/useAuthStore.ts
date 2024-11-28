@@ -1,3 +1,4 @@
+import { axiosInstance } from "@/lib/axios";
 import { create } from "zustand";
 
 interface AuthStore {
@@ -17,14 +18,9 @@ export const useAuthStore = create<AuthStore>((set) => ({
   checkAdminStatus: async () => {
     set({ isLoading: true, error: null });
     try {
-      const res = await fetch("/api/admin/check");
-      const data = await res.json();
+      const res = await axiosInstance.get("/admin/check");
 
-      if (!res.ok) {
-        throw new Error(data.error);
-      }
-
-      set({ isAdmin: data.admin });
+      set({ isAdmin: res.data.admin });
     } catch (error: any) {
       set({ isAdmin: false, error: error.response.data.message });
     } finally {

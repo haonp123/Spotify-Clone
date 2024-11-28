@@ -10,6 +10,7 @@ import { useLogin } from "@/hooks/useLogin";
 import { useLogout } from "@/hooks/useLogout";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { cn } from "@/lib/utils";
+import UserButton from "./UserButton";
 
 const Topbar = () => {
   const { authUser, setAuthUser } = useAuthContext();
@@ -20,10 +21,6 @@ const Topbar = () => {
 
   const handleLogin = async (credential) => {
     await login(credential);
-  };
-
-  const handleLogout = async () => {
-    await logout();
   };
 
   return (
@@ -40,7 +37,7 @@ const Topbar = () => {
           </Link>
         )}
         {authUser ? (
-          <Button onClick={handleLogout}>Log out</Button>
+          <UserButton />
         ) : (
           <GoogleLogin
             onSuccess={(credentialResponse) => {

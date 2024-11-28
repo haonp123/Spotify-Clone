@@ -1,3 +1,4 @@
+import { axiosInstance } from "@/lib/axios";
 import { create } from "zustand";
 
 interface ChatStore {
@@ -14,14 +15,9 @@ export const useChatStore = create<ChatStore>((set) => ({
   fetchUsers: async () => {
     set({ isLoading: true, error: null });
     try {
-      const res = await fetch("/api/users");
-      const data = await res.json();
+      const res = await axiosInstance.get("/users");
 
-      if (!res.ok) {
-        throw new Error(data.error);
-      }
-
-      set({ users: data.users });
+      set({ users: res.data.users });
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {

@@ -5,9 +5,12 @@ import { User } from "../models/user.model.js";
 export const login = async (req, res, next) => {
   try {
     const { token } = req.body;
+
     const decoded = jwtDecode(token);
 
-    const { sub, picture, name } = decoded;
+    console.log(decoded);
+
+    const { sub, picture, name, email } = decoded;
 
     // check if user already exists
     let user = await User.findOne({ googleId: sub });
@@ -18,6 +21,7 @@ export const login = async (req, res, next) => {
         googleId: sub,
         fullName: name,
         imageUrl: picture,
+        emailAddress: email,
       });
     }
 

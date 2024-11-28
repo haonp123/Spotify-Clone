@@ -47,7 +47,7 @@ const AudioPlayer = () => {
     }
   }, [isPlaying, currentSong]);
 
-  return <audio ref={audioRef} />;
+  return <audio id="main-audio" ref={audioRef} />;
 };
 
 export default AudioPlayer;

@@ -10,6 +10,7 @@ import {
   Play,
   Repeat,
   Shuffle,
+  SkipBack,
   SkipForward,
   Volume1,
 } from "lucide-react";
@@ -24,7 +25,7 @@ const PlaybackControls = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    audioRef.current = document.querySelector("audio");
+    audioRef.current = document.getElementById("main-audio") as HTMLAudioElement | null;
 
     const audio = audioRef.current;
     if (!audio) return;
@@ -80,13 +81,21 @@ const PlaybackControls = () => {
         <div className="flex flex-col items-center gap-2 flex-1 max-w-full sm:max-w-[45%]">
           <div className="flex items-center gap-4 sm:gap-6">
             <Button
+              size="icon"
+              variant="ghost"
+              className="hidden sm:inline-flex hover:text-white text-zinc-400"
+            >
+              <Shuffle className="h-4 w-4" />
+            </Button>
+
+            <Button
               onClick={playPrevious}
               disabled={!currentSong}
               size="icon"
               variant="ghost"
               className="hidden sm:inline-flex hover:text-white text-zinc-400"
             >
-              <Shuffle className="h-4 w-4" />
+              <SkipBack className="h-4 w-4" />
             </Button>
 
             <Button
