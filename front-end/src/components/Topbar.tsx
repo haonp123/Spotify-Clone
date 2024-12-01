@@ -15,7 +15,7 @@ const Topbar = () => {
 
   const { login } = useLogin();
 
-  const handleLogin = async (credential) => {
+  const handleLogin = async (credential: any) => {
     await login(credential);
   };
 
