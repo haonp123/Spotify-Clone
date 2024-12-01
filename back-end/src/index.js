@@ -30,7 +30,7 @@ initializeSocket(httpServer);
 // middlwares
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FE_URL,
     credentials: true,
   })
 );
