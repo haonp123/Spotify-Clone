@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { usePlayerStore } from "@/stores/usePlayerStore";
-import { formatDuration, formatTime } from "@/utils";
+import { formatTime } from "@/utils";
 import {
   Laptop2,
   ListMusic,

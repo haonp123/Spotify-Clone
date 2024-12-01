@@ -1,23 +1,19 @@
-import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import { LayoutDashboardIcon } from "lucide-react";
-import toast from "react-hot-toast";
 
 import { useAuthContext } from "@/contexts/AuthContext";
-import { Button, buttonVariants } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 import { useLogin } from "@/hooks/useLogin";
-import { useLogout } from "@/hooks/useLogout";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { cn } from "@/lib/utils";
 import UserButton from "./UserButton";
 
 const Topbar = () => {
-  const { authUser, setAuthUser } = useAuthContext();
+  const { authUser } = useAuthContext();
   const { isAdmin } = useAuthStore();
 
   const { login } = useLogin();
-  const { logout } = useLogout();
 
   const handleLogin = async (credential) => {
     await login(credential);

@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import PlaylistSkeleton from "@/components/skeletons/PlaylistSkeleton";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMusicStore } from "@/stores/useMusicStore";
 
 const LeftSidebar = () => {
-  const { songs, albums, isLoading, fetchAlbums } = useMusicStore();
+  const { albums, isLoading, fetchAlbums } = useMusicStore();
 
   useEffect(() => {
     fetchAlbums();

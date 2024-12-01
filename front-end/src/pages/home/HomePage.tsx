@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import Topbar from "@/components/Topbar";
 import { useMusicStore } from "@/stores/useMusicStore";

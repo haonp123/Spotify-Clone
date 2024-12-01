@@ -8,7 +8,6 @@ import AlbumsTabContent from "./components/AlbumsTabContent";
 import { useEffect } from "react";
 import { useMusicStore } from "@/stores/useMusicStore";
 import { Navigate } from "react-router-dom";
-import toast from "react-hot-toast";
 
 const AdminPage = () => {
   const { isAdmin } = useAuthStore();
