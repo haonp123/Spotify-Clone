@@ -35,6 +35,7 @@ app.use(
   })
 );
 app.use(express.json()); // to parse req.body
+app.use(express.static("public"));
 app.use(
   fileUpload({
     useTempFiles: true,
