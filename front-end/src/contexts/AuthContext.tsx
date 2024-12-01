@@ -3,16 +3,12 @@ import { toast } from "react-hot-toast";
 
 import { useAuthStore } from "@/stores/useAuthStore";
 import { axiosInstance } from "@/lib/axios";
-
-type UserType = {
-  id: string;
-  fullName: string;
-  imageUrl: string;
-};
+import { useChatStore } from "@/stores/useChatStore";
+import { User } from "@/types";
 
 const AuthContext = createContext<{
-  authUser: UserType | null;
-  setAuthUser: Dispatch<SetStateAction<UserType | null>>;
+  authUser: User | null;
+  setAuthUser: Dispatch<SetStateAction<User | null>>;
   isLoading: boolean;
 }>({
   authUser: null,
@@ -25,10 +21,11 @@ export const useAuthContext = () => {
 };
 
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [authUser, setAuthUser] = useState<UserType | null>(null);
+  const [authUser, setAuthUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const { checkAdminStatus } = useAuthStore();
+  const { initSocket } = useChatStore();
 
   useEffect(() => {
     const fetchAuthUser = async () => {
@@ -37,7 +34,8 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
 
         const data = res.data;
 
-        setAuthUser({ ...data, imageUrl: data.profilePic });
+        setAuthUser(data);
+        initSocket(data._id);
 
         await checkAdminStatus();
       } catch (error: any) {
@@ -49,7 +47,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     };
 
     fetchAuthUser();
-  }, [checkAdminStatus]);
+  }, [checkAdminStatus, initSocket]);
 
   return (
     <AuthContext.Provider value={{ authUser, setAuthUser, isLoading }}>

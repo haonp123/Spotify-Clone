@@ -8,8 +8,6 @@ export const login = async (req, res, next) => {
 
     const decoded = jwtDecode(token);
 
-    console.log(decoded);
-
     const { sub, picture, name, email } = decoded;
 
     // check if user already exists
@@ -56,11 +54,7 @@ export const getMe = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({
-      id: user.id,
-      fullName: user.fullName,
-      profilePic: user.imageUrl,
-    });
+    res.status(200).json(user);
   } catch (error) {
     console.log("Error in getMe controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });

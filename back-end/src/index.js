@@ -5,6 +5,7 @@ import path from "path";
 import cors from "cors";
 import session from "express-session";
 import cookieParser from "cookie-parser";
+import { createServer } from "http";
 
 import userRoutes from "./routes/user.route.js";
 import adminRoutes from "./routes/admin.route.js";
@@ -14,12 +15,17 @@ import albumRoutes from "./routes/album.route.js";
 import statRoutes from "./routes/stat.route.js";
 
 import { connectDB } from "./lib/db.js";
+import { initializeSocket } from "./lib/socket.js";
 
 dotenv.config();
 
 const __dirname = path.resolve();
 const app = express();
 const PORT = process.env.PORT;
+
+// socket.io
+const httpServer = createServer(app);
+initializeSocket(httpServer);
 
 // middlwares
 app.use(
@@ -63,7 +69,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
 });

@@ -7,6 +7,8 @@ import SongsTabContent from "./components/SongsTabContent";
 import AlbumsTabContent from "./components/AlbumsTabContent";
 import { useEffect } from "react";
 import { useMusicStore } from "@/stores/useMusicStore";
+import { Navigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const AdminPage = () => {
   const { isAdmin } = useAuthStore();
@@ -19,7 +21,7 @@ const AdminPage = () => {
   }, [fetchSongs, fetchStats, fetchAlbums]);
 
   if (!isAdmin) {
-    return <div>Unauthorized</div>;
+    return <Navigate to="/" />;
   }
 
   return (

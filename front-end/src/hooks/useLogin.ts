@@ -4,11 +4,13 @@ import toast from "react-hot-toast";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { axiosInstance } from "@/lib/axios";
+import { useChatStore } from "@/stores/useChatStore";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
   const { checkAdminStatus } = useAuthStore();
+  const { initSocket } = useChatStore();
 
   const login = async (credential: string) => {
     setLoading(true);
@@ -27,6 +29,7 @@ export const useLogin = () => {
 
       toast.success("Welcome to back!");
       setAuthUser(data.user);
+      initSocket(data.user._id);
 
       await checkAdminStatus();
     } catch (error: any) {
