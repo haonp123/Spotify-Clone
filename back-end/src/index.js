@@ -35,7 +35,6 @@ app.use(
   })
 );
 app.use(express.json()); // to parse req.body
-app.use(express.static("public"));
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -74,3 +73,5 @@ httpServer.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
 });
+
+export default httpServer;
