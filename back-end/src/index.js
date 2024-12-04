@@ -69,6 +69,9 @@ app.use((err, req, res, next) => {
   });
 });
 
+// settings for render deploy
+app.set("trust proxy", 1);
+
 httpServer.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
