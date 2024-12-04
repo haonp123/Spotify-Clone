@@ -26,7 +26,8 @@ export const login = async (req, res, next) => {
     res.cookie("jwt", token, {
       maxAge: 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
+      domain: 'spotify-clone-frontend-qla5.onrender.com'
     });
 
     res.status(200).json({ success: true, user });
