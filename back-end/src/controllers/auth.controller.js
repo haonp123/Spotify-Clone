@@ -27,7 +27,6 @@ export const login = async (req, res, next) => {
       maxAge: 60 * 60 * 1000,
       httpOnly: true,
       sameSite: "none",
-      domain: 'spotify-clone-frontend-qla5.onrender.com'
     });
 
     res.status(200).json({ success: true, user });
