@@ -22,7 +22,7 @@ interface ChatStore {
   fetchMessages: (userId: string) => Promise<void>;
 }
 
-const baseUrl = "http://localhost:5000";
+const baseUrl = "https://spotify-clone-frontend-qla5.onrender.com";
 
 const socket = io(baseUrl, {
   autoConnect: false, // only connect if user is authenticated
